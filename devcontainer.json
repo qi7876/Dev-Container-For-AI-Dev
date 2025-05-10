@@ -1,0 +1,41 @@
+{
+  "name": "Pytorch CUDA",
+  "context": "..",
+  "dockerFile": "./Dockerfile",
+
+  "runArgs": [
+    "--gpus=all",
+    "--ipc=host"
+  ],
+
+  // "mounts": [],
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.formatOnSave": true,
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": [
+        "charliermarsh.ruff",
+        "christian-kohler.path-intellisense",
+        "tamasfe.even-better-toml",
+        "github.copilot",
+        "github.copilot-chat",
+        "ms-python.python",
+        "ms-python.debugpy",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-renderers"
+      ]
+    }
+  },
+
+  // "postCreateCommand": "",
+
+  // "forwardPorts": [],
+
+  "hostRequirements": {
+    "gpu": true
+  }
+}
