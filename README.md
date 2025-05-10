@@ -1,7 +1,7 @@
 # Dev-Container-For-AI-Dev
 An out-of-box dev container config for AI dev.
 
-> ![NOTE]
+> ![IMPORTANT]
 > This config only works on VS Code. You can adjust `devcontainer.json` to make it work on other IDEs.
 
 ## Usage
