@@ -1,47 +1,25 @@
-FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu24.04
+ARG CUDA_VERSION_ARG=12.9.0
+FROM nvidia/cuda:${CUDA_VERSION_ARG}-devel-ubuntu22.04
 
-ARG PYTHON_VERSION_ARG=3.12
-ENV PYTHON_VERSION=${PYTHON_VERSION_ARG}
-
-# Set PATH for Conda
-ENV PATH=/opt/conda/bin:$PATH
-ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/lib:/opt/conda/lib"
-
-# Locale and Python environment variables
+# Locale and Python environment variables.
 ENV PYTHONIOENCODING=UTF-8 \
     LANG=C.UTF-8 \
     LC_ALL=C.UTF-8 \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    DEBIAN_FRONTEND=noninteractive \
-    CONDA_AUTO_UPDATE_CONDA=false
+    DEBIAN_FRONTEND=noninteractive
 
-# Install system dependencies
+# Install system dependencies.
 RUN apt-get update && apt-get install -y \
-    bash \
-    build-essential \
-    git \
-    curl \
-    ca-certificates \
-    wget \
+    build-essential curl ca-certificates wget tree unzip bzip2 xz-utils zip nano vim-tiny less jq lsb-release apt-transport-https sudo tmux ffmpeg libsm6 libxext6 libxrender-dev libssl3 git git-lfs gdb rsync aria2 \
+    && apt-get -y clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Miniconda
-RUN wget -O miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-    && /bin/bash miniconda3.sh -b -p /opt/conda \
-    && rm miniconda3.sh \
-    && /opt/conda/bin/conda init bash \
-    && eval "$(/opt/conda/bin/conda shell.bash hook)"
+# Install Starship.
+RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes && \
+    echo 'eval "$(starship init bash)"' >> /root/.bashrc
 
-# Install Python and other dependencies
-RUN conda config --set remote_max_retries 10 \
-    && conda install -y python=$PYTHON_VERSION \
-    && conda install -y anaconda \
-    && conda clean -afy
-
-# Install PyTorch and upgrade pip
-RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir opencv-python-headless \
-    && pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
-
-CMD ["/bin/bash"]
+# Install uv.
+ENV PATH="/root/.local/bin:${PATH}"
+ENV UV_LINK_MODE=copy
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
