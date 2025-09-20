@@ -1,0 +1,44 @@
+{
+  "name": "uv_cu129",
+  "context": "..",
+  "build": {
+    "dockerfile": "./Dockerfile",
+    "options": [
+      "--network=host"
+    ]
+  },
+  "runArgs": [
+    "--gpus=all",
+    "--ipc=host",
+    "--network=host"
+  ],
+  // "mounts": [],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.formatOnSave": true,
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": [
+        "charliermarsh.ruff",
+        "christian-kohler.path-intellisense",
+        "tamasfe.even-better-toml",
+        "github.copilot",
+        "github.copilot-chat",
+        "ms-python.python",
+        "ms-python.debugpy",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-renderers",
+        "ms-vscode.cmake-tools",
+        "ms-vscode.cpptools",
+        "ms-vscode.hexeditor"
+      ]
+    }
+  },
+  // "postCreateCommand": "",
+  // "forwardPorts": [],
+  "hostRequirements": {
+    "gpu": true
+  }
+}
