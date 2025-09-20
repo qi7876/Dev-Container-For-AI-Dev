@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  devcontainer:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        CUDA_VERSION: "${CUDA_VERSION:?}"
+        USER_NAME: "${USER_NAME:?}"
+        USER_UID: "${USER_UID:-1001}"
+        USER_GID: "${USER_GID:-1001}"
+
+        UBUNTU_MIRROR: "${UBUNTU_MIRROR:-mirrors.aliyun.com}"
+        PYPI_MIRROR: "${PYPI_MIRROR:-https://mirrors.aliyun.com/pypi/simple/}"
+        HUGGINGFACE_MIRROR: "${HUGGINGFACE_MIRROR:-https://hf-mirror.com}"
+    image: uv_cu_devcontainer:cu${CUDA_VERSION:-latest}
+    ipc: host
+    network_mode: host
+    user: ${USER_NAME}
+    working_dir: /workspace/${REPO_NAME:?}
+    volumes:
+      - ".:/workspace/${REPO_NAME:?}"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    command: sleep infinity

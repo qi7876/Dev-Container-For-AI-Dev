@@ -1,17 +1,7 @@
 {
-  "name": "uv_cu129",
-  "context": "..",
-  "build": {
-    "dockerfile": "./Dockerfile",
-    "options": [
-      "--network=host"
-    ]
-  },
-  "runArgs": [
-    "--gpus=all",
-    "--ipc=host",
-    "--network=host"
-  ],
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspace",
   // "mounts": [],
   "customizations": {
     "vscode": {
