@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: .devcontainer/Dockerfile
+      network: host
       args:
         CUDA_VERSION: "${CUDA_VERSION:?}"
         USER_NAME: "${USER_NAME:?}"

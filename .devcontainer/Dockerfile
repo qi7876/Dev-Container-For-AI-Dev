@@ -8,8 +8,8 @@ ENV PYTHONIOENCODING=UTF-8 \
 
 # Install system dependencies.
 ARG UBUNTU_MIRROR=mirrors.aliyun.com
-RUN sed -i 's/archive.ubuntu.com/${UBUNTU_MIRROR}/g' /etc/apt/sources.list && \
-    sed -i 's/security.ubuntu.com/${UBUNTU_MIRROR}/g' /etc/apt/sources.list
+RUN sed -i "s/archive.ubuntu.com/${UBUNTU_MIRROR}/g" /etc/apt/sources.list && \
+    sed -i "s/security.ubuntu.com/${UBUNTU_MIRROR}/g" /etc/apt/sources.list
 
 RUN apt-get update && \
     apt-get install -y \
@@ -31,7 +31,7 @@ ENV HF_ENDPOINT=${HUGGINGFACE_MIRROR}
 
 # Install Starship.
 RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes && \
-    echo 'eval "$(starship init bash)"' >> /root/.bashrc
+    echo 'eval "$(starship init bash)"' >> /home/${USER_NAME}/.bashrc
 
 # Install uv.
 ARG PYPI_MIRROR=https://mirrors.aliyun.com/pypi/simple/
