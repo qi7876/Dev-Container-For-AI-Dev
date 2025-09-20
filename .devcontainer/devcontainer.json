@@ -32,6 +32,5 @@
   "shutdownAction": "none",
   "hostRequirements": {
     "gpu": true
-  },
-  "updateContentCommand": "uv sync --dev --no-install-project"
+  }
 }
