@@ -1,7 +1,7 @@
 {
   "dockerComposeFile": "../docker-compose.yml",
   "service": "devcontainer",
-  "workspaceFolder": "/workspace",
+  "workspaceFolder": "/workspace/${localWorkspaceFolderBasename}",
   // "mounts": [],
   "customizations": {
     "vscode": {
@@ -28,7 +28,10 @@
   },
   // "postCreateCommand": "",
   // "forwardPorts": [],
+
+  "shutdownAction": "none",
   "hostRequirements": {
     "gpu": true
-  }
+  },
+  "updateContentCommand": "uv sync --dev --no-install-project"
 }
